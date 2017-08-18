@@ -9,3 +9,21 @@ dcos_service_port_mappings: []
 dcos_service_template: "marathon.j2.json"
 dcos_service_build_dir: "build"
 dcos_service_file: "{{ dcos_service_build_dir }}/marathon.json"
+dcos_service_tcp_health_check:
+  - "gracePeriodSeconds": 60
+    "intervalSeconds": 15
+    "timeoutSeconds": 15
+    "maxConsecutiveFailures": 2
+    "portIndex": 0
+    "protocol": "TCP"
+dcos_service_http_health_check:
+  - "gracePeriodSeconds": 60
+    "intervalSeconds": 15
+    "timeoutSeconds": 15
+    "maxConsecutiveFailures": 2
+    "portIndex": 0
+    "path": "/"
+    "protocol": "HTTP"
+    "ignoreHttp1xx": false
+dcos_service_use_default_http_health_check: "no"
+dcos_service_health_checks: "{% if dcos_service_use_default_http_health_check == 'yes' %}{{ dcos_service_http_health_check }}{% else %}{{ dcos_service_tcp_health_check }}{% endif %}"

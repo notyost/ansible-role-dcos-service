@@ -23,16 +23,7 @@
       "forcePullImage": true
     }
   },
-  "healthChecks": [
-    {
-      "gracePeriodSeconds": 60,
-      "intervalSeconds": 15,
-      "timeoutSeconds": 15,
-      "maxConsecutiveFailures": 2,
-      "portIndex": 0,
-      "protocol": "TCP"
-    }
-  ],
+  "healthChecks": {{ dcos_service_health_checks | to_json }},
   "readinessChecks": [],
   "dependencies": [],
   "upgradeStrategy": {

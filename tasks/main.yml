@@ -22,12 +22,12 @@
   changed_when: "'Created' in result.stdout"
 
 - name: update service
-  shell: dcos marathon app update {{ app_id }} < {{ dcos_service_file }}
+  shell: dcos marathon app update {{ dcos_service_app_id }} < {{ dcos_service_file }}
   when: not result.changed and not dcos_service_remove_service|bool and dcos_service_update_service|bool
   register: update_result
   changed_when: "'Created' in update_result.stdout"
 
 - name: delete service
-  shell: dcos marathon app remove {{ app_id }}
+  shell: dcos marathon app remove {{ dcos_service_app_id }}
   when: dcos_service_remove_service|bool
   ignore_errors: true
