@@ -1,0 +1,33 @@
+---
+# tasks file for dcos-service
+- name: Create required dirs
+  file:
+    state: directory
+    path: "{{ item }}"
+  with_items:
+    - "{{ dcos_service_build_dir }}"
+
+- name: create service definition
+  template:
+    src: "{{ dcos_service_template }}"
+    dest: "{{ dcos_service_file }}"
+  when: not dcos_service_remove_service|bool
+
+- name: create service
+  shell: dcos marathon app add {{ dcos_service_file }}
+  when: not dcos_service_remove_service|bool
+  register: result
+  failed_when:
+    - "result.stderr != '' and 'already exists' not in result.stderr"
+  changed_when: "'Created' in result.stdout"
+
+- name: update service
+  shell: dcos marathon app update {{ app_id }} < {{ dcos_service_file }}
+  when: not result.changed and not dcos_service_remove_service|bool and dcos_service_update_service|bool
+  register: update_result
+  changed_when: "'Created' in update_result.stdout"
+
+- name: delete service
+  shell: dcos marathon app remove {{ app_id }}
+  when: dcos_service_remove_service|bool
+  ignore_errors: true

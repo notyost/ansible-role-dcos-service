@@ -1,0 +1,11 @@
+---
+# defaults file for dcos-service
+dcos_service_remove_service: false
+dcos_service_update_service: true
+dcos_service_fetch: []
+dcos_service_constraints: []
+dcos_service_volumes: []
+dcos_service_port_mappings: []
+dcos_service_template: "marathon.j2.json"
+dcos_service_build_dir: "build"
+dcos_service_file: "{{ dcos_service_build_dir }}/marathon.json"

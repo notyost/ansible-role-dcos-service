@@ -1,0 +1,51 @@
+{
+  "id": "{{ dcos_service_app_id }}",
+  "instances": {{ dcos_service_num_instances }},
+  "cpus": {{ dcos_service_cpus }},
+  "mem": {{ dcos_service_memory }},
+  "disk": 0,
+  "gpus": 0,
+  "constraints": {{ dcos_service_constraints | to_json }},
+  "fetch": {{ dcos_service_fetch | to_json }},
+  "storeUrls": [],
+  "backoffSeconds": 1,
+  "backoffFactor": 1.15,
+  "maxLaunchDelaySeconds": 3600,
+  "container": {
+    "type": "DOCKER",
+    "volumes": {{ dcos_service_volumes | to_json }},
+    "docker": {
+      "image": "{{ dcos_service_image }}",
+      "network": "BRIDGE",
+      "portMappings": {{ dcos_service_port_mappings | to_json }},
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": true
+    }
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 60,
+      "intervalSeconds": 15,
+      "timeoutSeconds": 15,
+      "maxConsecutiveFailures": 2,
+      "portIndex": 0,
+      "protocol": "TCP"
+    }
+  ],
+  "readinessChecks": [],
+  "dependencies": [],
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 1,
+    "maximumOverCapacity": 1
+  },
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 300,
+    "expungeAfterSeconds": 600
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "requirePorts": false,
+  "labels": {
+    "HAPROXY_GROUP": "internal"
+  }
+}
