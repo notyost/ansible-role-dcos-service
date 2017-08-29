@@ -47,5 +47,6 @@
   "requirePorts": false,
   "labels": {
     "HAPROXY_GROUP": "internal"
-  }
+  },
+  "env": {{ dcos_service_env | to_json }}
 }
