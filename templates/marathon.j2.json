@@ -39,5 +39,6 @@
   "labels": {
     "HAPROXY_GROUP": "internal"
   },
-  "env": {{ dcos_service_env | to_json }}
+  "env": {{ dcos_service_env | to_json }},
+  "secrets": {{ dcos_service_secrets | to_json }}
 }
