@@ -30,6 +30,7 @@
     "minimumHealthCapacity": {{ dcos_min_health_cap }},
     "maximumOverCapacity": {{ dcos_max_over_cap }}
   },
+  "taskKillGracePeriodSeconds": {{ dcos_service_grace_kill }},
   "unreachableStrategy": {
     "inactiveAfterSeconds": 300,
     "expungeAfterSeconds": 600
