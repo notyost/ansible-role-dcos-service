@@ -27,8 +27,8 @@
   "readinessChecks": [],
   "dependencies": [],
   "upgradeStrategy": {
-    "minimumHealthCapacity": 1,
-    "maximumOverCapacity": 1
+    "minimumHealthCapacity": {{ dcos_min_health_cap }},
+    "maximumOverCapacity": {{ dcos_max_over_cap }}
   },
   "unreachableStrategy": {
     "inactiveAfterSeconds": 300,
