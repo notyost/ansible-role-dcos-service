@@ -29,3 +29,4 @@ dcos_service_use_default_http_health_check: "no"
 dcos_service_health_checks: "{% if dcos_service_use_default_http_health_check == 'yes' %}{{ dcos_service_http_health_check }}{% else %}{{ dcos_service_tcp_health_check }}{% endif %}"
 dcos_min_health_cap: 0
 dcos_max_over_cap: 0
+dcos_service_grace_kill: 3 #marathon default, unit is seconds
