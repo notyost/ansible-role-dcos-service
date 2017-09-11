@@ -36,9 +36,7 @@
   },
   "killSelection": "YOUNGEST_FIRST",
   "requirePorts": false,
-  "labels": {
-    "HAPROXY_GROUP": "internal"
-  },
+  "labels": {{ dcos_service_labels | to_json }},
   "env": {{ dcos_service_env | to_json }},
   "secrets": {{ dcos_service_secrets | to_json }}
 }
