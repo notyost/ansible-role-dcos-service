@@ -9,6 +9,10 @@ dcos_service_port_mappings: []
 dcos_service_template: "marathon.j2.json"
 dcos_service_build_dir: "build"
 dcos_service_file: "{{ dcos_service_build_dir }}/marathon.json"
+dcos_service_labels: 
+  - "HAPROXY_GROUP": "internal"
+dcos_service_env: []
+dcos_service_secrets: []
 dcos_service_tcp_health_check:
   - "gracePeriodSeconds": 60
     "intervalSeconds": 15
