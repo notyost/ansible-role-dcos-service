@@ -18,9 +18,13 @@
       "image": "{{ dcos_service_image }}",
       "network": "BRIDGE",
       "portMappings": {{ dcos_service_port_mappings | to_json }},
-      "privileged": false,
-      "parameters": [],
-      "forcePullImage": true
+      "privileged": {{ dcos_service_privileged }},
+      "parameters": [
+         {% for param, value in dcos_service_params.iteritems() %}
+           { "key": "{{ param }}", "value": "{{ value }}" }{% if not loop.last %},{% endif %}
+         {% endfor %}
+      ],
+      "forcePullImage": {{ dcos_service_force_pull }}
     }
   },
   "healthChecks": {{ dcos_service_health_checks | to_json }},
@@ -31,11 +35,8 @@
     "maximumOverCapacity": {{ dcos_max_over_cap }}
   },
   "taskKillGracePeriodSeconds": {{ dcos_service_grace_kill }},
-  "unreachableStrategy": {
-    "inactiveAfterSeconds": 300,
-    "expungeAfterSeconds": 600
-  },
-  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {{ dcos_service_unreachable_strat | to_json }},
+  "killSelection": "{{ dcos_service_kill_selection }}",
   "requirePorts": false,
   "labels": {{ dcos_service_labels | to_json }},
   "env": {{ dcos_service_env | to_json }},
