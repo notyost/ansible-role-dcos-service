@@ -10,7 +10,7 @@ dcos_service_template: "marathon.j2.json"
 dcos_service_build_dir: "build"
 dcos_service_file: "{{ dcos_service_build_dir }}/marathon.json"
 dcos_service_labels: 
-  - "HAPROXY_GROUP": "internal"
+  "HAPROXY_GROUP": "internal"
 dcos_service_env: 
 dcos_service_secrets: 
 dcos_service_tcp_health_check:
@@ -34,10 +34,10 @@ dcos_service_health_checks: "{% if dcos_service_use_default_http_health_check ==
 dcos_min_health_cap: 0
 dcos_max_over_cap: 0
 dcos_service_grace_kill: 3 #marathon default, unit is seconds
-dcos_service_privileged: false
-dcos_service_force_pull: true
+dcos_service_privileged: "false"
+dcos_service_force_pull: "true"
 dcos_service_unreachable_strat:
-  - "inactiveAfterSeconds": 300
-    "expungeAfterSeconds": 600
+  "inactiveAfterSeconds": 300
+  "expungeAfterSeconds": 600
 dcos_service_kill_selection: "YOUNGEST_FIRST"
 dcos_service_params: {}
